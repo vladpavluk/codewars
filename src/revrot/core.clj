@@ -4,7 +4,8 @@
 (defn- dispatch [str sz]
   (let [cnt (count str)]
     (when (or (= cnt 0)
-              (< cnt sz))
+              (< cnt sz)
+              (<= sz 0))
       :empty)))
 
 (def gen-partitions
@@ -29,7 +30,6 @@
   (->> string
        (gen-partitions sz)
        (map (fn [part]
-              (prn "Part -> " part)
               (if (even-sum-of-cubes? part)
                 (rev part)
                 (rotate-left part))))
